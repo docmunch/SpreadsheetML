@@ -389,7 +389,7 @@ showPosition T.PositionBottom  = "Bottom"
 -- LineStyleNone | LineStyleContinuous | LineStyleDash | LineStyleDot | LineStyleDashDot | LineStyleDashDotDot
 showLineStyle :: T.LineStyle -> String
 showLineStyle T.LineStyleNone       = "None"
-showLineStyle T.LineStyleContinuous = "Continous"
+showLineStyle T.LineStyleContinuous = "Continuous"
 showLineStyle T.LineStyleDash       = "Dash"
 showLineStyle T.LineStyleDot        = "Dot"
 showLineStyle T.LineStyleDashDot    = "DashDot"
