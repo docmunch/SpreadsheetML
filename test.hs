@@ -6,7 +6,7 @@ import Text.XML.SpreadsheetML.Builder
 
 import System.IO
 
-cells1 = [ [string "Quantity", string "Multiplier", string "Product"]
+cells1 = [ [string "Quantity \\&#174;", string "Multiplier \\8480", string "Product"]
          , [number 1,          number 0.9,          formula "=RC[-2]*RC[-1]"]
          , [number 10,         number 1.1,          formula "=RC[-2]*RC[-1]"]
          , [number 12,         number 0.2,          formula "=RC[-2]*RC[-1]"]

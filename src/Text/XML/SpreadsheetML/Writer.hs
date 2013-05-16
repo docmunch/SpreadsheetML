@@ -212,7 +212,7 @@ instance ToElement T.Style where
 instance ToElement T.Alignment where
   toElement at = (emptyAlignment)
     { L.elAttribs = catMaybes
-      [ toA T.alignHorizontal   "Horizontal"   show
+      [ toA T.alignHorizontal   "Horizontal"   showHorizontal
       , toA T.alignReadingOrder "ReadingOrder" show 
       , toA T.alignRotate       "Rotate"       show
       , toA T.alignShrinkToFit  "ShrinkToFit"  showBoolean
@@ -358,6 +358,12 @@ showVertical T.VAlignAutomatic = "Automatic"
 showVertical T.VAlignTop =       "Top"
 showVertical T.VAlignBottom =    "Bottom"
 showVertical T.VAlignCenter =    "Center"
+
+showHorizontal :: T.Horizontal -> String
+showHorizontal T.HAlignAutomatic = "Automatic"
+showHorizontal T.HAlignLeft =      "Left"
+showHorizontal T.HAlignCenter =    "Center"
+showHorizontal T.HAlignRight =     "Right"
 
 showPattern :: T.Pattern -> String
 showPattern T.PatternNone                  = "None"

@@ -168,7 +168,7 @@ data AutoFitHeight = AutoFitHeight | DoNotAutoFitHeight
 data Hidden = Shown | Hidden
   deriving (Read, Show)
 
-data Horizontal = HAlignCenterAcrossSelection | HAlignFill | HAlignJustify | HAlignDistributed | HAlignJustifyDistributed
+data Horizontal = HAlignAutomatic | HAlignLeft | HAlignCenter | HAlignRight
   deriving (Read, Show)
 
 data ReadingOrder = RightToLeft | LeftToRight

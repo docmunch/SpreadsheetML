@@ -3,3 +3,4 @@ cabal-dev/
 dist/
 .dist-buildwrapper/
 .project
+test.*
