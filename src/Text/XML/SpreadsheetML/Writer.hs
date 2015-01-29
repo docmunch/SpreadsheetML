@@ -132,11 +132,15 @@ mkData v = L.blank_element { L.elName     = dataName
   mkAttr (T.Number _)      = typeAttr "Number"
   mkAttr (T.Boolean _)     = typeAttr "Boolean"
   mkAttr (T.StringType _)  = typeAttr "String"
+  mkAttr (T.UtcType _)     = typeAttr "DateTime"
   mkCData (T.Number d)     = L.blank_cdata { LT.cdData = show d }
   mkCData (T.Boolean b)    = L.blank_cdata { LT.cdData = showBoolean b }
   mkCData (T.StringType s) = L.blank_cdata { LT.cdData = s }
+  -- 2015-01-19T14:41:58.000
+  mkCData (T.UtcType s)    = L.blank_cdata { LT.cdData = show s  }
   showBoolean True  = "1"
   showBoolean False = "0"
+
 
 -------------------------------------------------------------------------
 -- | XML Conversion Class

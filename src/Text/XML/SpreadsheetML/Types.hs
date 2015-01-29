@@ -1,8 +1,12 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Text.XML.SpreadsheetML.Types where
 
 {- See http://msdn.microsoft.com/en-us/library/aa140066%28office.10%29.aspx -}
 
 import Data.Word ( Word64 )
+import Data.Time.Clock (UTCTime)
+import Data.Time.Format (formatTime, readsTime, ParseTime, FormatTime)
+import System.Locale (defaultTimeLocale, iso8601DateFormat)
 
 -- | Only implement what we need
 
@@ -150,8 +154,21 @@ data Cell = Cell
   }
   deriving (Read, Show)
 
-data ExcelValue = Number Double | Boolean Bool | StringType String
+data ExcelValue
+    = Number Double
+    | Boolean Bool
+    | StringType String
+    | UtcType WrappedUtc -- ^ be sure to set the other attributes: cellStyleId = "s64", cellIndex = 7 }
   deriving (Read, Show)
+
+-- Necessary since UtcTime doens't have read/show instances
+newtype WrappedUtc = WrappedUtc { toUtc :: UTCTime }
+    deriving (FormatTime, ParseTime)
+instance Show WrappedUtc where
+    show s = formatTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S") s
+instance Read WrappedUtc where
+    readsPrec _ =
+        readsTime defaultTimeLocale (iso8601DateFormat $ Just "%H:%M:%S")
 
 -- | TODO: Currently just a string, but we could model excel formulas and
 -- use that type here instead.

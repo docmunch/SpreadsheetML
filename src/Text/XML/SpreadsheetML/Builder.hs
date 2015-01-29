@@ -1,6 +1,7 @@
 module Text.XML.SpreadsheetML.Builder where
 
 import Text.XML.SpreadsheetML.Types
+import Data.Time.Clock (UTCTime)
 
 -- | Construct empty values
 emptyWorkbook :: Workbook
@@ -34,6 +35,14 @@ formatCell s c = c { cellStyleID = Just s }
 number :: Double -> Cell
 number d = emptyCell { cellData = Just (Number d) }
 
+dateStyleID :: StyleID
+dateStyleID = StyleID "s64"
+-- | Convenience constructors
+utcCell :: UTCTime -> Cell
+utcCell d = emptyCell { cellData = Just (UtcType $ WrappedUtc d)
+                      , cellStyleID = Just $ dateStyleID
+                      , cellIndex = Just 7 }
+
 string :: String -> Cell
 string s = emptyCell { cellData = Just (StringType s) }
 
@@ -46,7 +55,13 @@ formula :: String -> Cell
 formula f = emptyCell { cellFormula = Just (Formula f) }
 
 mkWorkbook :: [Worksheet] -> Workbook
-mkWorkbook ws = Workbook Nothing Nothing ws
+mkWorkbook ws = Workbook Nothing (Just defaultStyles) ws
+
+defaultStyles :: Styles
+defaultStyles = mkStyles . (:[]) $ dtStyle
+  where
+    dtStyle = (mkStyle dateStyleID)
+              { elemNumberFormat = Just $ NumberFormat $ Just  "General Date" }
 
 mkStyles :: [Style] -> Styles
 mkStyles ss = Styles ss
